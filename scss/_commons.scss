@@ -1,0 +1,85 @@
+
+
+//змінна для розміру контейнера//
+$maxWidth: 1440; //вказати розмір полотна
+$maxWidthContainer: 1240; //вказати розмір обмежуючого контейнера
+
+//змінні для шрифтів//
+$ffMontserrat: 'Montserrat';
+//$ff: ;
+//===================================
+
+//міксін для адаптивного шрифта
+@mixin adaptiv-font($pcSize, $mobSize){
+   $addSize: $pcSize - $mobSize;
+   $addMobSize: $addSize + $addSize * 0.7;
+   @media(max-width: 767px){
+      font-size: calc(#{$mobSize + px} + #{$addMobSize} * ((100vw - 320px) / #{$maxWidth}));
+   }
+   @media(min-width: 767px){
+      font-size: calc(#{$mobSize + px} + #{$addSize} * (100vw / #{$maxWidth}));
+   }
+}
+//приклад використання міксіна
+//.1{
+//   font-weight: 500;
+//   @include adaptiv-font(40,24);  де перше значення - розмір шрифту за макетом
+                                      //друге значення - бажаний розмір на розштренні в 320px   
+//}
+//==========================================================================
+
+//міксін для адаптивної влстивості
+@mixin adaptiv-value($property, $startSize, $minSize){
+   $addSize: $startSize - $minSize;
+   #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+}
+
+//приклад використання міксіна
+//.1{
+//   font-weight: 500;
+//   @include adaptiv-value(padding,40,24);  де перше значення - властивість, яку описуємо
+                                      //друге значення - розмір за макетом
+                                      //третє значення - бажаний розмір на 320px   
+//}
+//==========================================================================
+
+.comm-button {
+   padding: 20px 49px;
+   color: rgb(255, 255, 255);
+   font-size: 14px;
+   font-weight: 900;
+   line-height: 19px;
+   border-radius: 5px;
+   background: rgb(184, 33, 33);
+   transition: all 0.3s ease;
+   @media(min-width:768px){
+      &:hover{
+         background: rgb(71, 4, 4);
+         transition: all 0.3s ease;
+      }
+   }
+}
+
+
+.comm-title {
+   h2{
+      color: rgb(255, 255, 255);
+      @include adaptiv-font(48,28);
+      font-weight: 900;
+      line-height: 70px;
+      text-align: center;
+      margin-bottom: 25px;
+      @media (max-width:768px){
+         line-height: 38px;
+      }
+   }
+   p{
+      color: rgb(255, 255, 255);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: center;
+      max-width: 632px;
+      margin: 0 auto;
+   }
+}
